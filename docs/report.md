@@ -1,12 +1,16 @@
 ---
-title: "Secure Global Routing: A BGP Hijacking and Mitigation Testbed"
+title: "Secure Global Routing"
+subtitle: "A BGP Hijacking and Mitigation Testbed"
 author: Peter Maynard, PhD
 date: 11th of June, 2020
+fontsize: 12pt
 bibliography: report.bib
 link-citations: true
 citation-style: http://www.zotero.org/styles/journal-of-eta-maritime-science
 abstract:  An Internet society (ISOC) initiative. This report is the result of an ISOC training program, that focused on securing the global routing infrastructure. This report is accompanied with a mininet based BGP testbed which can implement BGP spoofing and mitigation methods. 
 --- 
+
+![Left: What you expected to see when you hear 'securing global routing'. Right: What actually happens when you secure things.](figures/a-secure-meme.png)
 
 # Global Routing, is that safe?
 
