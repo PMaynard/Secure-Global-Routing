@@ -5,11 +5,15 @@ Internet Society: Secure Global Routing Initiative
 
 Report ([PDF](https://github.com/PMaynard/Secure-Global-Routing/blob/master/docs/report.pdf)|[MD](https://github.com/PMaynard/Secure-Global-Routing/blob/master/docs/report.md))
 
+This repository contians report discussing some of the threats to the global routing infrastructure, and what [Mutually Agreed Norms for Routing Security](https://www.manrs.org/) (MANRS) are doing to improve the situation. 
+
+This repository alos contains a testbed to that allows you to spoof ICMP packets and how to prevent packet spoofing.
+
 # ICMP Spoofing
 
 ## Install the Dependencies 
 
-- [mininet](http://mininet.org/): Creates a local testbed network using Linux namespaces.  
+- [mininet](http://mininet.org/): Creates a local testbed network using Linux namespaces.
 - [packit](https://linux.die.net/man/8/packit): Packet Spoofing.
 - [tshark](https://www.wireshark.org/docs/man-pages/tshark.html): Packet capture and analysis.
 
@@ -46,9 +50,9 @@ This is what source address spoofing looks like on the wire.
 
 You can prevent spoofing of this kind by enabling Linux's [rp_filter](https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt). See [1,2,3,4] for more information. Basically, you have have three options:
 
-0. - No source validation.
-1. - Strict mode as defined in RFC3704 Strict Reverse Path. Each incoming packet is tested against the FIB and if the interface is not the best reverse path the packet check will fail. By default failed packets are discarded.
-2. - Loose mode as defined in RFC3704 Loose Reverse Path. Each incoming packet's source address is also tested against the FIB and if the source address is not reachable via any interface the packet check will fail.
+0. No source validation.
+1. Strict mode as defined in RFC3704 Strict Reverse Path. Each incoming packet is tested against the FIB and if the interface is not the best reverse path the packet check will fail. By default failed packets are discarded.
+2. Loose mode as defined in RFC3704 Loose Reverse Path. Each incoming packet's source address is also tested against the FIB and if the source address is not reachable via any interface the packet check will fail.
 
 And they can be enabled like this:
 

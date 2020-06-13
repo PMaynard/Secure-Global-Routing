@@ -1,13 +1,13 @@
 ---
 title: "Secure Global Routing"
-subtitle: "A BGP Hijacking and Mitigation Testbed"
+subtitle: "Packet Spoofing and Mitigation Testbed"
 author: Peter Maynard, PhD
 date: 11th of June, 2020
 fontsize: 12pt
 bibliography: report.bib
 link-citations: true
 citation-style: http://www.zotero.org/styles/journal-of-eta-maritime-science
-abstract:  An Internet society (ISOC) initiative. This report is the result of an ISOC training program, that focused on securing the global routing infrastructure. This report is accompanied with a mininet based BGP testbed which can implement BGP spoofing and mitigation methods. 
+abstract:  An Internet society (ISOC) initiative. This report is the result of an ISOC training program, that focused on securing the global routing infrastructure. This report is accompanied with a mininet based testbed which can implement ICMP spoofing and mitigation methods. 
 --- 
 
 ![Left: What you expected to see when you hear 'securing global routing'. Right: What actually happens when you secure things.](figures/a-secure-meme.png)
@@ -120,26 +120,56 @@ It is important to make sure that spoofing is periodically tested, to make sure 
 
 # Testbed
 
-## Border Gateway Protocol 
-
-Border Gateway Protocol (BGP) @wikipedia_border_2020-1 is a standardised exterior gateway routing protocol, designed to exchange routing and reachability information among autonomous systems (AS) @wikipedia_autonomous_2020 on the Internet. It was first defined in 1994, we are currently on version 4, as defined in RFC 4271 @hares_border_2006 in 2006. 
-
-## Configuration
-
-![Testbed Architecture](figures/net.png)
-
-## Attack
-
-Global Validation had some nice attack diagrams
-
-![Testbed Architecture](figures/arch.png)
 
 
-## Mitigation
+## Install the Dependencies 
 
+- [mininet](http://mininet.org/): Creates a local testbed network using Linux namespaces.
+- [packit](https://linux.die.net/man/8/packit): Packet Spoofing.
+- [tshark](https://www.wireshark.org/docs/man-pages/tshark.html): Packet capture and analysis.
 
+They can be installed by running:
 
-# Conclusion
+	sh icmp-spoof-dependencies.sh
+
+## Run the Testbed
+
+**It is advised to run this on a VM**, not on a production machine. Because we will be changing some important settings on the host. 
+
+	sh run-icmp.sh
+
+This will setup a local network that looks like the below diagram:
+
+![](figures/icmp-net.png)
+
+1. Listen for packets on each of the hosts (i.e. h1,h2,h3).
+	- `xterm hN`
+	- `tshark icmp`
+
+2. On the mininet cli, perfrom the packet spoofing via h1:
+	- `h1 packit -m inject -t ICMP -c 0 -s 172.16.0.100 -d 10.0.0.100`
+
+3. You should now see output from each of the packet captures.
+
+This will cause ICMP packets to arrive at h3, the destination, and h2, the spoofed node. 
+
+## ICMP Spoofing Mitigations
+
+You can prevent spoofing of this kind by enabling Linux's [rp_filter](https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt). See [@red_hat_2211_nodate @serverbuddiescom_disable_nodate @slashrootin_linux_2013] for more information. Basically, you have have three options:
+
+0. No source validation.
+1. Strict mode as defined in RFC3704 Strict Reverse Path. Each incoming packet is tested against the FIB and if the interface is not the best reverse path the packet check will fail. By default failed packets are discarded.
+2. Loose mode as defined in RFC3704 Loose Reverse Path. Each incoming packet's source address is also tested against the FIB and if the source address is not reachable via any interface the packet check will fail.
+
+And they can be enabled like this:
+
+	sysctl -w net.ipv4.conf.default.rp_filter=1
+	sysctl -w net.ipv4.conf.all.rp_filter=1
+	sysctl -w net.ipv4.conf.s1.rp_filter=1
+	sysctl -w net.ipv4.conf.s3.rp_filter=1
+	sysctl -w net.ipv4.conf.s2.rp_filter=1 
+
+If you run the above commands on your host and re-run the experiments. You'll find that only h1 sees any ICMP packet. Meaning that the router tests all incoming packets against the FIB and discard the packets.
 
 # Acknowledgements
 
