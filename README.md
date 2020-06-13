@@ -25,7 +25,7 @@ They can be installed by running:
 
 This will setup a local network that looks like the below diagram:
 
-![](docs/fiugres/icmp-net.png)
+![](docs/figures/icmp-net.png)
 
 1. Listen for packets on each of the hosts (i.e. h1,h2,h3).
 	- `xterm hN`
@@ -62,8 +62,7 @@ If you run the above commands on your host and re-run the experiments. You'll fi
 
 ![](docs/figures/icmp-spoof-mitigation.gif)
 
-
-[1] https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security_guide/sect-security_guide-server_security-reverse_path_forwarding
-[2] http://blog.serverbuddies.com/disable-icmp-redirect-and-enable-ip-spoofing-protection/
-[3] https://www.slashroot.in/linux-kernel-rpfilter-settings-reverse-path-filtering
-[4] https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt
+- [1] https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security_guide/sect-security_guide-server_security-reverse_path_forwarding
+- [2] http://blog.serverbuddies.com/disable-icmp-redirect-and-enable-ip-spoofing-protection/
+- [3] https://www.slashroot.in/linux-kernel-rpfilter-settings-reverse-path-filtering
+- [4] https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt
