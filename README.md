@@ -1,6 +1,10 @@
 # Secure Global Routing
 Internet Society: Secure Global Routing Initiative
 
+![](docs/figures/a-secure-meme.png)
+
+Report ([PDF](https://github.com/PMaynard/Secure-Global-Routing/blob/master/docs/report.pdf)|[MD](https://github.com/PMaynard/Secure-Global-Routing/blob/master/docs/report.md))
+
 # ICMP Spoofing
 
 ## Install the Dependencies 
@@ -63,7 +67,3 @@ If you run the above commands on your host and re-run the experiments. You'll fi
 [2] http://blog.serverbuddies.com/disable-icmp-redirect-and-enable-ip-spoofing-protection/
 [3] https://www.slashroot.in/linux-kernel-rpfilter-settings-reverse-path-filtering
 [4] https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt
-
-
-
-
