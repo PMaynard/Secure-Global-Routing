@@ -1,0 +1,29 @@
+digraph arch {
+	rankdir=LR;
+	// Style edges
+	edge[arrowhead = none]
+
+	// Style Nodes
+	node[shape="rectangle", style="rounded", width=1, height=1.2];
+
+	// Define nodes
+	h1 [label="h1\n192.168.1.100"];
+	h2 [label="h2\n172.16.0.100"];
+	h3 [label="h3\n10.0.0.100"];
+	R [label="r0-Router"];
+
+	node[shape="rectangle", style=none, width=.2, height=.2];
+	SW01;
+	SW02;
+	SW03;
+
+	// Define Edges
+	h1 -> SW01 
+	SW01 -> R 
+
+	h2 -> SW02
+	SW02 -> R;
+	
+	h3 -> SW03
+	SW03 -> R;
+}

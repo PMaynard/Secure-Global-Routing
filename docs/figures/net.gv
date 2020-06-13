@@ -1,0 +1,29 @@
+digraph arch {
+	rankdir=LR;
+	// Style edges
+	edge[arrowhead = none]
+
+	// Style Nodes
+	node[shape="rectangle", style="rounded", width=1, height=1.2];
+
+	// Define nodes
+	C [label="Client\n(AS001)\n1.0.0.0"];
+	T [label="Transit\n(AS200)\n200.0.0.0"];
+	A [label="Attacker\n(AS240)\n240.0.0.0"];
+	G [label="Google\n(AS100)\n100.0.0.0"];
+
+	node[shape="rectangle", style=none, width=.2, height=.2];
+	SW01;
+	SW02;
+	SW03;
+
+	// Define Edges
+	C -> SW01 [label="eth0\n1.0.0.1"];
+	SW01 -> T [label="eth0\n200.0.0.1"];
+
+	T -> SW02 [label="eth0\n200.0.0.1"];
+	SW02 -> A;
+	
+	T -> SW03
+	SW03 -> G;
+}
